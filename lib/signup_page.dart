@@ -1,18 +1,18 @@
-import 'package:flutter/material.dart';
+
 import 'package:flutter/gestures.dart';
-import 'package:fruit_2/product_page.dart';
-import 'package:fruit_2/signup_page.dart';
+import 'package:flutter/material.dart';
 
-// import 'package:fruit_2/signup_page.dart';
+import 'login_page.dart';
+import 'product_page.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class SingPage extends StatefulWidget {
+  const SingPage ({Key? key}) : super(key: key);
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<SingPage > createState() => _SignPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SignPageState extends State<SingPage > {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 28.0),
                     child: Text(
-                      "Login",
+                      "Sign Up",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: Colors.black,
@@ -66,15 +66,36 @@ class _LoginPageState extends State<LoginPage> {
                       keyboardType: TextInputType.emailAddress,
                       autofocus: false,
                       decoration: InputDecoration(
-                        labelText: 'Email Address',
+                        labelText: 'First Name',
                         border: OutlineInputBorder(),
                         labelStyle: TextStyle(letterSpacing: 0.1),
                       ),
                     ),
                   ),
+
+                   Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 28.0, vertical: 27),
+                    child: TextFormField(
+                      keyboardType: TextInputType.emailAddress,
+                      autofocus: false,
+                      decoration: InputDecoration(
+                        labelText: 'Last Name',
+                        border: OutlineInputBorder(),
+                        labelStyle: TextStyle(letterSpacing: 0.1),
+                      ),
+                    ),
+                  ),
+
+                  
+
+
+
+
+
+                  
                   Padding(
                     padding:
-                        EdgeInsets.symmetric(horizontal: 28.0, vertical: 48),
+                        EdgeInsets.symmetric(horizontal: 28.0),
                     child: Row(
                       children: [
                         Expanded(
@@ -94,6 +115,29 @@ class _LoginPageState extends State<LoginPage> {
                       ],
                     ),
                   ),
+
+                    Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 28.0, vertical: 25),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: TextFormField(
+                            keyboardType: TextInputType.text,
+                            autofocus: false,
+                            obscureText: true,
+                            decoration: const InputDecoration(
+                              labelText: 'Confirm Password',
+                              border: OutlineInputBorder(),
+                              labelStyle: TextStyle(letterSpacing: 0.1),
+                            ),
+                          ),
+                        ),
+                        // IconButton(
+                        //     onPressed: () {}, icon: Icon(Icons.remove_red_eye))
+                      ],
+                    ),
+                  ),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(40),
                     child: Container(
@@ -102,29 +146,29 @@ class _LoginPageState extends State<LoginPage> {
                       child: TextButton(
                           onPressed: () {},
                           child: Text(
-                            "Login",
+                            "Sign Up",
                             style: TextStyle(color: Colors.white),
                           )),
                     ),
                   ),
-                  Padding(
+                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 18.0),
                     child: RichText(
                         text: TextSpan(children: [
-                      const TextSpan(
-                          text: "Do you have an account? ",
+                      TextSpan(
+                          text: "Already have an account? ",
                           style: TextStyle(color: Colors.black)),
                       TextSpan(
-                          text: 'Sign Up',
-                          style: const  TextStyle(color: Colors.black),
+                          text: 'Log In',
+                          style: TextStyle(color: Colors.black),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const PoductPage  ()),
+                                    builder: (context) => LoginPage()),
                               );
-                            }),
+                            }), 
                     ])),
                   ),
                 ],
