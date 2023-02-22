@@ -1,4 +1,10 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:fruit_2/product_page.dart';
+
+import 'signup_page.dart';
+
+// import 'package:fruit_2/signup_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -95,7 +101,13 @@ class _LoginPageState extends State<LoginPage> {
                       color: Colors.green,
                       width: 200,
                       child: TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const SignupPage()),
+                            );
+                          },
                           child: Text(
                             "Login",
                             style: TextStyle(color: Colors.white),
@@ -105,15 +117,21 @@ class _LoginPageState extends State<LoginPage> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 18.0),
                     child: RichText(
-                        text: const TextSpan(children: [
-                      TextSpan(
+                        text: TextSpan(children: [
+                      const TextSpan(
                           text: "Do you have an account? ",
                           style: TextStyle(color: Colors.black)),
                       TextSpan(
-                          text: "Sign Up",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black)),
+                          text: 'Sign Up',
+                          style: const TextStyle(color: Colors.black),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const ProductPage()),
+                              );
+                            }),
                     ])),
                   ),
                 ],
