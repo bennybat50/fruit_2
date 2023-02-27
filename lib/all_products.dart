@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'grid_page_.dart';
+
 class AllProducts extends StatefulWidget {
   const AllProducts({Key? key}) : super(key: key);
 
@@ -15,6 +17,7 @@ class _AllProductsState extends State<AllProducts> {
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 10),
         child: ListView(
+          shrinkWrap: true,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -76,11 +79,21 @@ class _AllProductsState extends State<AllProducts> {
                             hintText: "Search for fruits"),
                       ),
                     ),
-                    const Icon(Icons.search)
+                    const Icon(Icons.search),
                   ],
                 ),
               ),
             ),
+
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 10,
+                vertical: 20,
+              ),
+              child: GridPage(),
+            ),
+
+            // ignore: prefer_const_constructors
           ],
         ),
       ),

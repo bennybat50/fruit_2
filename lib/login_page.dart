@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:fruit_2/product_page.dart';
 
+import 'all_products.dart';
 import 'signup_page.dart';
 
 // import 'package:fruit_2/signup_page.dart';
@@ -62,20 +62,21 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 28.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 28.0),
                     child: TextFormField(
                       keyboardType: TextInputType.emailAddress,
                       autofocus: false,
+                      // ignore: prefer_const_constructors
                       decoration: InputDecoration(
                         labelText: 'Email Address',
-                        border: OutlineInputBorder(),
-                        labelStyle: TextStyle(letterSpacing: 0.1),
+                        border: const OutlineInputBorder(),
+                        labelStyle: const TextStyle(letterSpacing: 0.1),
                       ),
                     ),
                   ),
                   Padding(
                     padding:
-                        EdgeInsets.symmetric(horizontal: 28.0, vertical: 48),
+                        const EdgeInsets.symmetric(horizontal: 28.0, vertical: 48),
                     child: Row(
                       children: [
                         Expanded(
@@ -108,9 +109,10 @@ class _LoginPageState extends State<LoginPage> {
                                   builder: (context) => const SignupPage()),
                             );
                           },
+                          // ignore: prefer_const_constructors
                           child: Text(
                             "Login",
-                            style: TextStyle(color: Colors.white),
+                            style: const TextStyle(color: Colors.white),
                           )),
                     ),
                   ),
@@ -129,7 +131,7 @@ class _LoginPageState extends State<LoginPage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const ProductPage()),
+                                    builder: (context) => const AllProducts()),
                               );
                             }),
                     ])),

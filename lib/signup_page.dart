@@ -1,17 +1,18 @@
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-import 'all_products.dart';
 import 'login_page.dart';
+import 'product_page.dart';
 
 class SignupPage extends StatefulWidget {
-  const SignupPage({Key? key}) : super(key: key);
+  const SignupPage ({Key? key}) : super(key: key);
 
   @override
-  State<SignupPage> createState() => _SignPageState();
+  State<SignupPage > createState() => _SignPageState();
 }
 
-class _SignPageState extends State<SignupPage> {
+class _SignPageState extends State<SignupPage > {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,9 +72,9 @@ class _SignPageState extends State<SignupPage> {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 28.0, vertical: 27),
+
+                   Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 28.0, vertical: 27),
                     child: TextFormField(
                       keyboardType: TextInputType.emailAddress,
                       autofocus: false,
@@ -84,8 +85,17 @@ class _SignPageState extends State<SignupPage> {
                       ),
                     ),
                   ),
+
+                  
+
+
+
+
+
+                  
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 28.0),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 28.0),
                     child: Row(
                       children: [
                         Expanded(
@@ -105,7 +115,8 @@ class _SignPageState extends State<SignupPage> {
                       ],
                     ),
                   ),
-                  Padding(
+
+                    Padding(
                     padding:
                         EdgeInsets.symmetric(horizontal: 28.0, vertical: 25),
                     child: Row(
@@ -133,20 +144,14 @@ class _SignPageState extends State<SignupPage> {
                       color: Colors.green,
                       width: 200,
                       child: TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => AllProducts()),
-                            );
-                          },
+                          onPressed: () {},
                           child: Text(
                             "Sign Up",
                             style: TextStyle(color: Colors.white),
                           )),
                     ),
                   ),
-                  Padding(
+                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 18.0),
                     child: RichText(
                         text: TextSpan(children: [
@@ -163,7 +168,7 @@ class _SignPageState extends State<SignupPage> {
                                 MaterialPageRoute(
                                     builder: (context) => LoginPage()),
                               );
-                            }),
+                            }), 
                     ])),
                   ),
                 ],
