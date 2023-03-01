@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fruit_2/cart_page.dart';
 
 import 'grid_page_.dart';
 import 'product_page.dart';
@@ -41,8 +42,16 @@ class _AllProductsState extends State<AllProducts> {
                     icon: const Icon(
                       Icons.menu_rounded,
                     )),
-                const CircleAvatar(
-                  backgroundImage: AssetImage("assets/img/avatar.png"),
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => CartPage()),
+                    );
+                  },
+                  child: const CircleAvatar(
+                    backgroundImage: AssetImage("assets/img/avatar.png"),
+                  ),
                 )
               ],
             ),
