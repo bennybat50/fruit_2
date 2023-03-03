@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fruit_2/grid_page_.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({Key? key}) : super(key: key);
@@ -8,6 +9,15 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
+  // ignore: non_constant_identifier_names
+  var OBJ2 = [
+    {"image": 'assets/img/lemon.png', "title": 'Goodluck', "price": '200', "count":0},
+    {"image": 'assets/img/banna.png', "title": 'Goodluck', "price": '200',"count":0},
+    {"image": 'assets/img/mango.png', "title": 'Goodluck', "price": '200',"count":0},
+    {"image": 'assets/img/straberry.png', "title": 'Goodluck', "price": '200',"count":0},
+  ];
+  int _itemCount = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,28 +40,31 @@ class _CartPageState extends State<CartPage> {
             ListView.builder(
               shrinkWrap: true,
               physics: const ScrollPhysics(),
-              itemCount: 40,
+              itemCount: OBJ2.length,
               itemBuilder: (context, index) {
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Image.asset(
-                      "assets/img/banna.jpeg",
+                     "${OBJ2[index]['image']}" ,
                       width: 110,
                       height: 110,
                       fit: BoxFit.contain,
                     ),
                     Wrap(
                       direction: Axis.vertical,
+                      // ignore: prefer_const_literals_to_create_immutables
                       children: [
                         Text(
-                          "Banana Fruits",
+                     
+                           "${OBJ2[index]['title']}",
                           textAlign: TextAlign.start,
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w600),
                         ),
                         Text(
-                          "\$120",
+                          "\$${OBJ2[index]['price']}",
+
                           textAlign: TextAlign.start,
                           style: TextStyle(fontSize: 14, color: Colors.green),
                         )
@@ -60,12 +73,18 @@ class _CartPageState extends State<CartPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        IconButton(onPressed: () {}, icon: Icon(Icons.remove)),
+                        IconButton(
+                            onPressed: () => setState(() =>
+                                _itemCount != 0 ? _itemCount -- : _itemCount),
+                            icon: Icon(Icons.remove)),
                         Text(
-                          "2",
+                          _itemCount.toString(),
                           style: TextStyle(fontSize: 14),
                         ),
-                        IconButton(onPressed: () {}, icon: Icon(Icons.add)),
+                        IconButton(
+                            onPressed: () => setState(() =>
+                                 _itemCount ++ ),
+                            icon: Icon(Icons.add)),
                       ],
                     )
                   ],

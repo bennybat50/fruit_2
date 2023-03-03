@@ -40,7 +40,6 @@ class _GridPageState extends State<GridPage> {
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,),
       itemBuilder:(context, index){
       final item = OBJ[index];
-
        return Padding(padding: const EdgeInsets.all(10.0),
          child: GridCard(image: item.image, title: item.title, price: item.price,),
        );
