@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fruit_2/grid_page_.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({Key? key}) : super(key: key);
@@ -9,14 +8,32 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
-  // ignore: non_constant_identifier_names
   var OBJ2 = [
-    {"image": 'assets/img/lemon.png', "title": 'Goodluck', "price": '200', "count":0},
-    {"image": 'assets/img/banna.png', "title": 'Goodluck', "price": '200',"count":0},
-    {"image": 'assets/img/mango.png', "title": 'Goodluck', "price": '200',"count":0},
-    {"image": 'assets/img/straberry.png', "title": 'Goodluck', "price": '200',"count":0},
+    {
+      "image": 'assets/img/lemon.png',
+      "title": 'Goodluck',
+      "price": 199.99,
+      "count": 1
+    },
+    {
+      "image": 'assets/img/banna.jpeg',
+      "title": 'Goodluck',
+      "price": 129.85,
+      "count": 1
+    },
+    {
+      "image": 'assets/img/mango.png',
+      "title": 'Goodluck',
+      "price": 23.99,
+      "count": 1
+    },
+    {
+      "image": 'assets/img/strawberry.png',
+      "title": 'Goodluck',
+      "price": 100.99,
+      "count": 1
+    },
   ];
-  int _itemCount = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +63,7 @@ class _CartPageState extends State<CartPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Image.asset(
-                     "${OBJ2[index]['image']}" ,
+                      "${OBJ2[index]['image']}",
                       width: 110,
                       height: 110,
                       fit: BoxFit.contain,
@@ -56,15 +73,13 @@ class _CartPageState extends State<CartPage> {
                       // ignore: prefer_const_literals_to_create_immutables
                       children: [
                         Text(
-                     
-                           "${OBJ2[index]['title']}",
+                          "${OBJ2[index]['title']}",
                           textAlign: TextAlign.start,
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w600),
                         ),
                         Text(
                           "\$${OBJ2[index]['price']}",
-
                           textAlign: TextAlign.start,
                           style: TextStyle(fontSize: 14, color: Colors.green),
                         )
@@ -74,16 +89,32 @@ class _CartPageState extends State<CartPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         IconButton(
-                            onPressed: () => setState(() =>
-                                _itemCount != 0 ? _itemCount -- : _itemCount),
+                            onPressed: () {
+                              setState(() {
+                                if (OBJ2[index]['count'] == 1) {
+                                  OBJ2.removeAt(index);
+                                } else {
+                                  OBJ2[index]['count'] =
+                                      int.parse("${OBJ2[index]['count']}") - 1;
+                                }
+                              });
+                            },
                             icon: Icon(Icons.remove)),
                         Text(
-                          _itemCount.toString(),
+                          "${OBJ2[index]['count']}",
                           style: TextStyle(fontSize: 14),
                         ),
                         IconButton(
-                            onPressed: () => setState(() =>
-                                 _itemCount ++ ),
+                            onPressed: () {
+                              var count = int.parse("${OBJ2[index]['count']}");
+                              var price =
+                                  double.parse("${OBJ2[index]['price']}");
+                              setState(() {
+                                OBJ2[index]['count'] =
+                                    count + 1; //Increase number
+                                OBJ2[index]['price'] = price * count;
+                              });
+                            },
                             icon: Icon(Icons.add)),
                       ],
                     )
