@@ -13,24 +13,28 @@ class _CartPageState extends State<CartPage> {
       "image": 'assets/img/lemon.png',
       "title": 'Goodluck',
       "price": 199.99,
+      "unit_price": 199.99,
       "count": 1
     },
     {
       "image": 'assets/img/banna.jpeg',
       "title": 'Goodluck',
       "price": 129.85,
+      "unit_price": 129.85,
       "count": 1
     },
     {
       "image": 'assets/img/mango.png',
       "title": 'Goodluck',
       "price": 23.99,
+      "unit_price": 23.99,
       "count": 1
     },
     {
       "image": 'assets/img/strawberry.png',
       "title": 'Goodluck',
       "price": 100.99,
+      "unit_price": 100.99,
       "count": 1
     },
   ];
@@ -79,7 +83,7 @@ class _CartPageState extends State<CartPage> {
                               fontSize: 16, fontWeight: FontWeight.w600),
                         ),
                         Text(
-                          "\$${OBJ2[index]['price']}",
+                          "\$${double.parse("${OBJ2[index]['price']}").toStringAsFixed(2)}",
                           textAlign: TextAlign.start,
                           style: TextStyle(fontSize: 14, color: Colors.green),
                         )
@@ -94,8 +98,13 @@ class _CartPageState extends State<CartPage> {
                                 if (OBJ2[index]['count'] == 1) {
                                   OBJ2.removeAt(index);
                                 } else {
-                                  OBJ2[index]['count'] =
-                                      int.parse("${OBJ2[index]['count']}") - 1;
+                                  var count = int.parse(
+                                      "${OBJ2[index]['count']}"); //Get current count
+                                  var unit_price = double.parse(
+                                      "${OBJ2[index]['unit_price']}"); // Get Current price
+
+                                  OBJ2[index]['count'] = count - 1;
+                                  OBJ2[index]['price'] = unit_price * count;
                                 }
                               });
                             },
@@ -106,13 +115,14 @@ class _CartPageState extends State<CartPage> {
                         ),
                         IconButton(
                             onPressed: () {
-                              var count = int.parse("${OBJ2[index]['count']}");
-                              var price =
-                                  double.parse("${OBJ2[index]['price']}");
                               setState(() {
-                                OBJ2[index]['count'] =
-                                    count + 1; //Increase number
-                                OBJ2[index]['price'] = price * count;
+                                var count = int.parse(
+                                    "${OBJ2[index]['count']}"); //Get current count
+                                var unit_price = double.parse(
+                                    "${OBJ2[index]['unit_price']}"); // Get Current price
+
+                                OBJ2[index]['count'] = count + 1;
+                                OBJ2[index]['price'] = unit_price * count;
                               });
                             },
                             icon: Icon(Icons.add)),
