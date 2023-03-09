@@ -79,7 +79,7 @@ Validation validation = new Validation();
                           border: const OutlineInputBorder(),
                           labelStyle: const TextStyle(letterSpacing: 0.1),
                         ),
-                        validator: validation.text(value),
+                        // validator: validation.text(value),
                       ),
                     ),
                     Padding(
