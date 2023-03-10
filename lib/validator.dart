@@ -1,7 +1,78 @@
 class Validation {
-  text(value) {
+  String? text(value) {
     if (value.toString() == "") {
       return "Please give us your name";
+    } else {
+      return null;
+    }
+  }
+
+  String? oneNumber(value) {
+    if (value.length == 0) {
+      return "Field is required";
+    } else if (value.contains(" ") ||
+        value.contains("-") ||
+        value.contains("/") ||
+        value.contains("*") ||
+        value.contains("_")) {
+      return "No special character allowed\n e.g - , / , *, _";
+    } else {
+      return null;
+    }
+  }
+
+  String? email(value) {
+    String expn = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+    RegExp regExp = new RegExp(expn);
+    if (value.length == 0) {
+      return "Field is required";
+    } else if (!regExp.hasMatch(value)) {
+      return "Invalid Email";
+    } else {
+      return null;
+    }
+  }
+
+  String? phone(value) {
+    String pattern = r'(^(?:[+0]9)?[0-9]{6,11}$)';
+    RegExp regExp = new RegExp(pattern);
+    if (value.length == 0) {
+      return 'Please enter mobile number';
+    } else if (!regExp.hasMatch(value)) {
+      return 'Please enter valid mobile number';
+    }
+    return null;
+  }
+
+  String? password(value, int less) {
+    bool hasUppercase = value.contains(new RegExp(r'[A-Z]'));
+    bool hasDigits = value.contains(new RegExp(r'[0-9]'));
+    bool hasLowercase = value.contains(new RegExp(r'[a-z]'));
+    bool hasSpecialCharacters =
+        value.contains(new RegExp(r'[!@#$%^&*(),.?":{}|<>]'));
+
+    if (value.length == 0) {
+      return "Password is required";
+    } else if (value.length < less) {
+      return "Minimum of $less characters.";
+    } else if (!hasUppercase) {
+      return "Password must contain at least\one capital letter e.g(A).";
+    } else if (!hasDigits) {
+      return "Password must contain at least a digit e.g(1)";
+    } else if (!hasLowercase) {
+      return "Password must contain at least\none small letter e.g(a)";
+    } else {
+      return null;
+    }
+  }
+
+  String? confirmPassword(value1, value2, int less) {
+    if (value1.length == 0) {
+      return "Password is required";
+    } else if (value1.length <= less) {
+      return "Minimum of $less characters";
+    } else if (value1.toString() != value2.toString()) {
+      return "Please reconfirm your password";
     } else {
       return null;
     }
