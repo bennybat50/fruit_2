@@ -1,5 +1,5 @@
 class Validation {
-  text(value) {
+  String? text(value) {
     if (value.toString() == "") {
       return "Please give us your name";
     } else {

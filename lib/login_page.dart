@@ -17,7 +17,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final formKey = GlobalKey<FormState>();
  
-Validation validation = new Validation();
+// Validation validation = new Validation();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,7 +79,7 @@ Validation validation = new Validation();
                           border: const OutlineInputBorder(),
                           labelStyle: const TextStyle(letterSpacing: 0.1),
                         ),
-                        // validator: validation.text(value),
+                        validator: Validation().text,
                       ),
                     ),
                     Padding(
