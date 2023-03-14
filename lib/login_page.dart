@@ -16,8 +16,10 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final formKey = GlobalKey<FormState>();
- 
-// Validation validation = new Validation();
+
+  Validation validation = Validation();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,6 +74,7 @@ class _LoginPageState extends State<LoginPage> {
                       padding: const EdgeInsets.symmetric(horizontal: 28.0),
                       child: TextFormField(
                         keyboardType: TextInputType.emailAddress,
+                        controller: emailController,
                         autofocus: false,
                         // ignore: prefer_const_constructors
                         decoration: InputDecoration(
@@ -90,6 +93,7 @@ class _LoginPageState extends State<LoginPage> {
                           Expanded(
                             child: TextFormField(
                               keyboardType: TextInputType.text,
+                              controller: passwordController,
                               autofocus: false,
                               obscureText: true,
                               decoration: const InputDecoration(
@@ -97,6 +101,7 @@ class _LoginPageState extends State<LoginPage> {
                                 border: OutlineInputBorder(),
                                 labelStyle: TextStyle(letterSpacing: 0.1),
                               ),
+                              validator: validatePassword,
                             ),
                           ),
                           // IconButton(
@@ -151,12 +156,20 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  String? validatePassword(value) => Validation().password(value, 4);
+
+  String? confirmPass(value) =>
+      Validation().confirmPassword(value, passwordController.text, 4);
+
   validateForm() {
     if (formKey.currentState!.validate()) {
-       Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const SignupPage()),
-    );
+      print(emailController.text);
+      print(passwordController.text);
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const SignupPage()),
+      );
     }
   }
 }

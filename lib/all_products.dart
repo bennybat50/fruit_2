@@ -12,6 +12,7 @@ class AllProducts extends StatefulWidget {
 }
 
 class _AllProductsState extends State<AllProducts> {
+  final GlobalKey<ScaffoldState> _key = GlobalKey();
   var OBJ = [
     ListObject(image: 'assets/img/apple.png', title: 'Goodluck', price: '20'),
     ListObject(
@@ -28,7 +29,107 @@ class _AllProductsState extends State<AllProducts> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _key,
       backgroundColor: Colors.lightGreen[100],
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.green,
+        unselectedItemColor: Colors.black45,
+        selectedItemColor: Colors.green,
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: "Home"),
+          BottomNavigationBarItem(icon: Icon(Icons.image), label: "Gallery"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.bar_chart), label: "Actvity"),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
+        ],
+      ),
+      drawer: Drawer(
+        backgroundColor: Colors.green,
+        child: ListView(
+          children: [
+            DrawerHeader(
+                decoration: const BoxDecoration(color: Colors.green),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const CartPage()),
+                        );
+                      },
+                      child: const CircleAvatar(
+                        backgroundImage: AssetImage("assets/img/avatar.png"),
+                      ),
+                    ),
+                    const Text(
+                      "Good Morning !",
+                      style: TextStyle(color: Colors.white, fontSize: 12),
+                    ),
+                    const Text(
+                      "Mr James",
+                      style: TextStyle(color: Colors.white, fontSize: 22),
+                    )
+                  ],
+                )),
+            ClipRRect(
+              borderRadius:
+                  const BorderRadius.only(topRight: Radius.circular(70)),
+              child: Container(
+                height: 900,
+                color: Colors.green[400],
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 18.0),
+                  child: ListView(
+                    shrinkWrap: true,
+                    physics: ScrollPhysics(),
+                    children: [
+                      const ListTile(
+                        leading: Icon(
+                          Icons.settings,
+                          color: Colors.white,
+                        ),
+                        title: Text(
+                          "Settings",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        subtitle: Text(
+                          "Go here",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        trailing: Icon(
+                          Icons.chevron_right,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const ListTile(
+                        leading: Icon(
+                          Icons.settings,
+                          color: Colors.white,
+                        ),
+                        title: Text(
+                          "Logout",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        subtitle: Text(
+                          "Leave here",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        trailing: Icon(
+                          Icons.logout,
+                          color: Colors.white,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 10),
         child: ListView(
@@ -38,7 +139,9 @@ class _AllProductsState extends State<AllProducts> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      _key.currentState!.openDrawer();
+                    },
                     icon: const Icon(
                       Icons.menu_rounded,
                     )),
@@ -46,7 +149,7 @@ class _AllProductsState extends State<AllProducts> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => CartPage()),
+                      MaterialPageRoute(builder: (context) => const CartPage()),
                     );
                   },
                   child: const CircleAvatar(
@@ -115,7 +218,7 @@ class _AllProductsState extends State<AllProducts> {
               ),
               child: GridView.builder(
                 shrinkWrap: true,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     crossAxisSpacing: 4.0,
                     mainAxisSpacing: 4.0),
@@ -148,11 +251,12 @@ class _AllProductsState extends State<AllProducts> {
                               ),
                               Text(
                                 OBJ[index].title,
-                                style: TextStyle(fontWeight: FontWeight.w600),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w600),
                               ),
                               Text(
                                 "\$${OBJ[index].price}",
-                                style: TextStyle(color: Colors.green),
+                                style: const TextStyle(color: Colors.green),
                               )
                             ],
                           ),
