@@ -2,19 +2,32 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fruit_2/cart_page.dart';
 
+import 'grid_page_.dart';
 import 'product_page.dart';
 
-class AllProducts extends StatefulWidget {
-  const AllProducts({Key? key}) : super(key: key);
+class AllProductsOld extends StatefulWidget {
+  const AllProductsOld({Key? key}) : super(key: key);
 
   @override
-  State<AllProducts> createState() => _AllProductsState();
+  State<AllProductsOld> createState() => _AllProductsOldState();
 }
 
-class _AllProductsState extends State<AllProducts> {
+class _AllProductsOldState extends State<AllProductsOld> {
   final GlobalKey<ScaffoldState> _key = GlobalKey();
   final dio = Dio();
-
+  var OBJ = [
+    ListObject(image: 'assets/img/apple.png', title: 'Goodluck', price: '20'),
+    ListObject(
+        image: 'assets/img/banna.jpeg', title: 'Goodluck me', price: '20'),
+    ListObject(
+        image: 'assets/img/lemon.png', title: 'Goodluck me 3', price: '20'),
+    ListObject(
+        image: 'assets/img/mango.png', title: 'Goodluck me 4', price: '20'),
+    ListObject(
+        image: 'assets/img/strawberry.png',
+        title: 'Goodluck me 4',
+        price: '20'),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -207,7 +220,7 @@ class _AllProductsState extends State<AllProducts> {
               ),
               child: FutureBuilder(
                 initialData: [],
-                future: getAllProducts(),
+                future: getAllProductsOld(),
                 builder: (context, snapShot) {
                   return GridView.builder(
                     shrinkWrap: true,
@@ -216,7 +229,7 @@ class _AllProductsState extends State<AllProducts> {
                             crossAxisCount: 2,
                             crossAxisSpacing: 4.0,
                             mainAxisSpacing: 4.0),
-                    itemCount: snapShot.data.length,
+                    itemCount: OBJ.length,
                     itemBuilder: (BuildContext context, int index) {
                       return InkWell(
                         onTap: () {
@@ -224,7 +237,7 @@ class _AllProductsState extends State<AllProducts> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => ProductPage(
-                                      product: snapShot.data[index],
+                                      product: OBJ[index],
                                     )),
                           );
                         },
@@ -237,19 +250,19 @@ class _AllProductsState extends State<AllProducts> {
                               color: Colors.white,
                               child: Column(
                                 children: [
-                                  Image.network(
-                                    snapShot.data[index]["avatar"],
-                                    height: 100,
+                                  Image.asset(
+                                    OBJ[index].image,
+                                    height: 120,
                                     alignment: Alignment.center,
                                     fit: BoxFit.contain,
                                   ),
                                   Text(
-                                    snapShot.data[index]["first_name"],
+                                    OBJ[index].title,
                                     style: const TextStyle(
                                         fontWeight: FontWeight.w600),
                                   ),
                                   Text(
-                                    "\$${snapShot.data[index]["email"]}",
+                                    "\$${OBJ[index].price}",
                                     style: const TextStyle(color: Colors.green),
                                   )
                                 ],
@@ -270,9 +283,9 @@ class _AllProductsState extends State<AllProducts> {
     );
   }
 
-  Future getAllProducts() async {
-    var response = await dio.get('https://reqres.in/api/users?page=2',
-        options: Options(responseType: ResponseType.json));
-    return response.data["data"];
+  Future getAllProductsOld() async {
+    var response = await dio.get('https://reqres.in/api/users?page=2');
+
+    return response.data;
   }
 }

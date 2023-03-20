@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:fruit_2/validator.dart';
+import 'package:fruit_2/utils/route_page.dart';
+import 'package:fruit_2/utils/validator.dart';
 
 import 'all_products.dart';
 import 'signup_page.dart';
@@ -165,11 +166,7 @@ class _LoginPageState extends State<LoginPage> {
     if (formKey.currentState!.validate()) {
       print(emailController.text);
       print(passwordController.text);
-
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const SignupPage()),
-      );
+      RoutePage().nextRoute(context, const SignupPage());
     }
   }
 }

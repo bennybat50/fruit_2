@@ -1,36 +1,28 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:fruit_2/utils/validator.dart';
 
 import 'all_products.dart';
 import 'login_page.dart';
 
 class SignupPage extends StatefulWidget {
-   const SignupPage({Key? key}) : super(key: key);
+  const SignupPage({Key? key}) : super(key: key);
   // final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  
 
   @override
   State<SignupPage> createState() => _SignPageState();
 }
 
 class _SignPageState extends State<SignupPage> {
-  final  formKey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
+  var emailController = TextEditingController();
+  var passwordController = TextEditingController();
+  final dio = Dio();
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       backgroundColor: Colors.green,
-      // appBar: AppBar(
-      //   backgroundColor: Colors.green,
-      //   centerTitle: true,
-      //   elevation: 0.0,
-      //   leading: Icon(Icons.person),
-      //   title: const Text(
-      //     "Fruits",
-      //     textAlign: TextAlign.center,
-      //     style: TextStyle(color: Colors.white, fontSize: 40),
-      //   ),
-      // ),
       body: ListView(
         children: [
           const Padding(
@@ -44,9 +36,9 @@ class _SignPageState extends State<SignupPage> {
             ),
           ),
           Form(
-            key:  formKey,
+            key: formKey,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             child: ClipRRect(
-              
               borderRadius:
                   const BorderRadius.only(topRight: Radius.circular(70)),
               child: Container(
@@ -69,46 +61,40 @@ class _SignPageState extends State<SignupPage> {
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 28.0),
                       child: TextFormField(
-                        keyboardType: TextInputType.emailAddress,
+                        keyboardType: TextInputType.text,
                         autofocus: false,
-                        decoration: InputDecoration(
-                          labelText: 'First Name',
+                        decoration: const InputDecoration(
+                          labelText: 'Full Name',
                           border: OutlineInputBorder(),
                           labelStyle: TextStyle(letterSpacing: 0.1),
                         ),
-                        validator: (value) {
-                          var value;
-                          if(value?.isNotEmpty && value?.length!> 2){
-                            return null;
-                          }else if(value.lenght < 3 && value.isNotEmpty){
-                            return "Your name is short";
-                          } else{
-                            return "Please give us your name";
-                          }
-                        },
                       ),
                     ),
                     Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 28.0, vertical: 27),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 28.0, vertical: 27),
                       child: TextFormField(
                         keyboardType: TextInputType.emailAddress,
+                        controller: emailController,
                         autofocus: false,
-                        decoration: InputDecoration(
-                          labelText: 'Last Name',
+                        validator: Validation().email,
+                        decoration: const InputDecoration(
+                          labelText: 'Email',
                           border: OutlineInputBorder(),
                           labelStyle: TextStyle(letterSpacing: 0.1),
                         ),
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 28.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 28.0),
                       child: Row(
                         children: [
                           Expanded(
                             child: TextFormField(
                               keyboardType: TextInputType.text,
                               autofocus: false,
+                              validator: Validation().text,
+                              controller: passwordController,
                               obscureText: true,
                               decoration: const InputDecoration(
                                 labelText: 'Password',
@@ -151,16 +137,9 @@ class _SignPageState extends State<SignupPage> {
                         width: 200,
                         child: TextButton(
                             onPressed: () {
-                              if (!formKey.currentState!.validate()){
-                                return;
-                              }
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => AllProducts()),
-                              );
+                              validateForm();
                             },
-                            child: Text(
+                            child: const Text(
                               "Sign Up",
                               style: TextStyle(color: Colors.white),
                             )),
@@ -170,12 +149,12 @@ class _SignPageState extends State<SignupPage> {
                       padding: const EdgeInsets.symmetric(vertical: 18.0),
                       child: RichText(
                           text: TextSpan(children: [
-                        TextSpan(
+                        const TextSpan(
                             text: "Already have an account? ",
                             style: TextStyle(color: Colors.black)),
                         TextSpan(
                             text: 'Log In',
-                            style: TextStyle(color: Colors.black),
+                            style: const TextStyle(color: Colors.black),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
                                 Navigator.push(
@@ -194,5 +173,23 @@ class _SignPageState extends State<SignupPage> {
         ],
       ),
     );
+  }
+
+  validateForm() async {
+    if (formKey.currentState!.validate()) {
+      var postData = {
+        "email": emailController.text,
+        "password": passwordController.text
+      };
+      var res = await dio.post("https://reqres.in/api/register",
+          data: postData, options: Options(responseType: ResponseType.json));
+      print(res.data);
+      if (res.data["token"]) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const AllProducts()),
+        );
+      }
+    }
   }
 }
