@@ -267,7 +267,7 @@ class _AllProductsState extends State<AllProducts> {
           ],
         ),
       ),
-    );
+    ); 
   }
 
   Future getAllProducts() async {
