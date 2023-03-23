@@ -18,7 +18,13 @@ class _ProductPageState extends State<ProductPage> {
   final GlobalKey<ScaffoldState> _key = GlobalKey();
   final dio = Dio();
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    getSingleProduct();
     return Scaffold(
         backgroundColor: Colors.green,
         appBar: AppBar(
@@ -30,15 +36,14 @@ class _ProductPageState extends State<ProductPage> {
           initialData: {},
           future: getSingleProduct(),
           builder: (context, snapshot) {
-            // print(snapshot.data);
             return ListView(
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 50),
                   child: Container(
                       height: 170,
-                      child: Image.asset(
-                          scale: 0.1, "${snapshot.data.data.avatar}")),
+                      child: Image.network(
+                          scale: 0.1, "${snapshot.data["data"]["avatar"]}")),
                 ),
                 ClipRRect(
                   borderRadius:
@@ -56,7 +61,8 @@ class _ProductPageState extends State<ProductPage> {
                         children: [
                           Padding(
                             padding: EdgeInsets.only(left: 40, top: 20),
-                            child: Text('${snapshot.data.data.first_name}',
+                            child: Text(
+                                '${snapshot.data["data"]["first_name"]}',
                                 style: TextStyle(
                                     color: Colors.black, fontSize: 20)),
                           ),
@@ -131,7 +137,7 @@ class _ProductPageState extends State<ProductPage> {
                                 Padding(
                                   padding:
                                       const EdgeInsets.only(left: 40, top: 10),
-                                  child: Text("${snapshot.data.support.text}",
+                                  child: Text(" ",
                                       style: const TextStyle(
                                           color: Colors.green,
                                           fontSize: 15,
@@ -163,23 +169,21 @@ class _ProductPageState extends State<ProductPage> {
   }
 
   Future getSingleProduct() async {
-    
     var response = await dio.get(
-        "https://reqres.in/api/users/${widget.product.id}",
+        "https://reqres.in/api/users/${widget.product["id"]}",
         options: Options(responseType: ResponseType.json));
-        debugPrint(response.data);
+    print(response.data);
     var singleData = {
       "support": response.data["support"],
       "data": response.data["data"]
     };
-    // debugPrint(singleData);
+
     return singleData;
   }
 }
 
 // 1.Looking for object in one response
-// 2. Create an oject to hold the data & support response 
+// 2. Create an oject to hold the data & support response
 // 3. Wrap the container ina fulture builder
 // 4. snapShot.data.
-//flutter means create an object 
-
+//flutter means create an object
