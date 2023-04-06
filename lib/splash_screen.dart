@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:fruit_2/product_page.dart';
 
+import 'database_repo/database_repository.dart';
 import 'login_page.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -15,6 +15,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
+    initDb();
     Timer(Duration(seconds: 5), () {
       //Move to another page
       Navigator.push(
@@ -40,5 +41,9 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
       ),
     );
+  }
+
+  void initDb() async {
+    await DatabaseRepository.instance.todoDatabase;
   }
 }
